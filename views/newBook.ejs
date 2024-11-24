@@ -1,31 +1,42 @@
 <%- include('partials/header.ejs') %>
+<div class="page-container">
+    <div class="content-wrap">
+        <a class="back-btn" href="/"><-- Return</a>
+        <div class="container-add-book">
+            <div class="search-form-box">
+                <h1>Adding A Book To Your List</h1>
+                <form action="/add" method="post">
+                    <p>Book Name:</p>
+                    <input type="text" name="bookName" placeholder="write the book's name" value= "<%= locals.searchTitle ? locals.searchTitle : ""%>" required="true"/>
+                    <button type="submit">Submit</button>
 
-<h1>Adding A Book To Your List</h1>
-<form action="/add" method="post">
-    <p>Book Name:</p>
-    <input type="text" name="bookName" value= "<%= locals.searchTitle ? locals.searchTitle : ""%>" required="true"/>
-    <button type="submit">Submit</button>
-
-</form>
-<% if (locals.searchedBooks) { %>
-    <ul>
-        <% searchedBooks.forEach(book => { %>
-            
-            <li>
-                <h2><%= book.title %></h2>
-                <p><%= book.author_name %></p>
-                <% if (book.lending_edition_s) { %>
-                <img src="https://covers.openlibrary.org/b/olid/<%= book.lending_edition_s %>-M.jpg"/>
-                <% } else {%>
-                <img src="/assets/icons/no-image-50.png"/>
-                <% } %>
-                <form action="/book/new" method="post">
-                    <button type="submit" name="bookIndex" value=<%= book.index %> >Add to List</button>
                 </form>
-            </li>
-        <% });%>
-    </ul>
-<% } %>
-
+            </div>
+            
+            <% if (locals.searchedBooks) { %>
+                <ul class="book-list no-dot-list">
+                    <% searchedBooks.forEach(book => { %>
+                        
+                        <li class="book-note-box">
+                            <div class="book-title">
+                                <h2><%= book.title %></h2>
+                                <p><%= book.author_name %></p>
+                            </div>
+                            <% if (book.lending_edition_s) { %>
+                            <img class="book-cover" src="https://covers.openlibrary.org/b/olid/<%= book.lending_edition_s %>-M.jpg"/>
+                            <% } else {%>
+                            <img class="book-cover" src="/assets/icons/no-image-50.png"/>
+                            <% } %>
+                            <form action="/book/new" method="post">
+                                <button type="submit" name="bookIndex" value=<%= book.index %> >Add to List</button>
+                            </form>
+                        </li>
+                    <% });%>
+                </ul>
+            <% } %>
+        
+        </div>
+    </div>
+</div>
 
 <%- include('partials/footer.ejs') %>

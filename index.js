@@ -105,10 +105,9 @@ app.post("/add", async (req,res)=>{
 
 app.post("/book/new", async (req,res)=>{
     const chosenBookIndex = req.body.bookIndex;
-    console.log(searchedBooks[chosenBookIndex]);
     try{
         await db.query("INSERT INTO books (title,author,cover_id) \
-                        VALUES ($1,$2,$3)",[searchedBooks[chosenBookIndex].title,searchedBooks[chosenBookIndex].author_name,searchedBooks[chosenBookIndex].lending_edition_s]);
+                        VALUES ($1,$2,$3)",[searchedBooks[chosenBookIndex].title,searchedBooks[chosenBookIndex].author_name[0],searchedBooks[chosenBookIndex].lending_edition_s]);
         res.redirect("/");
     } catch(err){
         console.log(err);
