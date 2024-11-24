@@ -1,0 +1,31 @@
+<%- include('partials/header.ejs') %>        
+
+<div class="page-container">
+    <div class="content-wrap">
+        <% if (locals.books) { %>
+            <ul class="book-list">
+                <% books.forEach(book => { %>
+                    <a href="/book/<%- book.id %>">
+                        <li class="book-note-box" >
+                            <div class="book-title">
+                                <h2 ><%= book.title %></h2>
+                                <h3><%= book.author %></h3>
+                            </div>
+                            <% if (book.cover_id) { %>
+                                <img class="book-cover" src="https://covers.openlibrary.org/b/olid/<%= book.cover_id %>-M.jpg"/>
+                                <% } else {%>
+                                <img class="book-cover" src="/assets/icons/no-image-50.png"/>
+                            <% } %>
+                        
+                        </li>
+                    </a>
+                <% }) %>
+            </ul>
+        <% } else {%>
+            <h2>No Books Inlisted</h2>
+        <% } %>
+        <a class="add-btn" href="/add">Add New Book</a>
+    </div>
+</div>
+
+<%- include('partials/footer.ejs') %>

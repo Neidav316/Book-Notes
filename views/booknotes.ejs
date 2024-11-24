@@ -1,0 +1,30 @@
+<%- include('partials/header.ejs') %>
+<div class="page-container">
+    <div class="content-wrap">
+        <div>
+            <h2><%= book.title %></h2>
+            <h3><%= book.author %></h3>
+        </div>
+        <% if (book.cover_id) { %>
+            <img class="book-cover" src="https://covers.openlibrary.org/b/olid/<%= book.cover_id %>-M.jpg"/>
+            <% } else {%>
+            <img class="book-cover" src="/assets/icons/no-image-50.png"/>
+        <% } %>
+    
+        
+        <% if (locals.notes ) { %>
+            <ul>
+                <% notes.forEach(note =>{ %>
+                    <li><%= note.note %></li>
+                <% }) %>
+            </ul>
+        <% } else { %>
+            <p>No notes yet!</p>
+        <% } %>
+        <form action="note/add" method="post">
+            <textarea name="noteContent" placeholder="write your new note on the book" required="true"></textarea>
+            <button type="submit" name="bookId" value=<%= book.id %>>Add New Note</button>
+        </form>
+    </div>
+</div>
+<%- include('partials/footer.ejs') %>
