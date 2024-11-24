@@ -5,7 +5,6 @@
         <% if (locals.books) { %>
             <ul class="book-list">
                 <% books.forEach(book => { %>
-                    <a href="/book/<%- book.id %>">
                         <li class="book-note-box" >
                             <div class="book-title">
                                 <h2 ><%= book.title %></h2>
@@ -16,9 +15,14 @@
                                 <% } else {%>
                                 <img class="book-cover" src="/assets/icons/no-image-50.png"/>
                             <% } %>
-                        
+                            <div class="btns-box">
+                                <a class="link-btn" href="/book/<%- book.id %>">Book Notes</a>
+
+                                <form class="delete-btn" action="/book/<%= book.id %>" method="post">
+                                    <input type="checkbox" onchange="this.form.submit()">Delete</input>
+                                </form>
+                            </div>
                         </li>
-                    </a>
                 <% }) %>
             </ul>
         <% } else {%>

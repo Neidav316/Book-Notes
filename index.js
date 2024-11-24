@@ -2,14 +2,16 @@ import express from "express";
 import bodyParser from "body-parser";
 import axios from "axios";
 import pg from "pg";
+import data from "./secrets.json" assert {type:'json'}
 
 const app = express();
 const port = 3000;
+const password = data.password;
 const db = new pg.Client({
     user: "postgres",
     host: "localhost",
     database: "booknotes",
-    password: "Postturi86",
+    password: password ? password : "******",
     port: 5432
 });
 
@@ -85,6 +87,13 @@ app.get("/book/:id", async (req,res)=>{
         console.log(bookError);
         res.redirect("/");
     }
+});
+
+app.post("/book/:id", async (req,res)=>{
+    const bookId = req.params.id;
+    await db.query("DELETE FROM notes WHERE book_id = $1",[bookId]);
+    await db.query("DELETE FROM books WHERE id = $1",[bookId]);
+    res.redirect("/");
 });
 app.get("/add",(req,res)=>{
     res.render("newBook.ejs");
