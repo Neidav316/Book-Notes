@@ -18,7 +18,22 @@
                 <% if (locals.notes ) { %>
                     <ul class="note-list">
                         <% notes.forEach(note =>{ %>
-                            <li class="list-item"><%= note.note %></li>
+                            <li class="list-item">
+                                <p id="note<%= note.id %>"><%= note.note_content %></p>
+                                <form class="edit" action="/note/edit/<%= book.id %>" method="post">
+                                    <input type="hidden" name="updatedNoteId" value="<%= note.id %>"/>
+                                    <input id="input<%= note.id %>" type="text" name="updatedNoteContent" value="<%= note.note_content %>" autocomplete="off"
+                                        autofocus="true" hidden="true" />
+                                    <button id="done<%=note.id%>" class="edit" type="submit" hidden><img class="icon"
+                                        src="/assets/icons/check-solid.svg" alt="tick image"></button>
+                                </form>
+                                <button id="edit<%= note.id %>" class="edit" onclick="handler('<%=note.id%>')">
+                                    <img class="icon" src="/assets/icons/pencil-solid.svg" alt="pencil image">
+                                </button>
+                                <form action="/note/delete/<%= book.id %>" method="post">
+                                    <input type="checkbox" onchange="this.form.submit()" name="deleteNoteId" value="<%= note.id %>">
+                                  </form>
+                            </li>
                         <% }) %>
                     </ul>
                 <% } else { %>
@@ -32,4 +47,12 @@
         </div>
     </div>
 </div>
+<script>
+    function handler(id) {
+        document.getElementById("note" + id).setAttribute("hidden", true)
+      document.getElementById("edit" + id).setAttribute("hidden", true)
+      document.getElementById("done" + id).removeAttribute("hidden")
+      document.getElementById("input" + id).removeAttribute("hidden")
+    }
+</script>
 <%- include('partials/footer.ejs') %>

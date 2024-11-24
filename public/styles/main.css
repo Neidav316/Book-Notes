@@ -147,6 +147,8 @@ a{
     background-color: darkgoldenrod;
     padding: 5px;
     margin: 5px;
+    color: white;
+
 }
 .btns-box{
     display: flex;
@@ -160,9 +162,13 @@ a{
     text-decoration: none;
     padding: 10px;
     margin: 10px;
-    /* width: 60px; */
-    /* height: 480px; */
     background-color: darkgray;
+
+}
+
+.delete-btn{
+    background-color: red;
+    color: white;
 
 }
 
@@ -174,7 +180,33 @@ a{
     color: white;
 }
 
-
+::placeholder {
+    color: lightgray;
+    opacity: 1;
+}
+  
+.icon {
+    height: 20px;
+}
+button.edit {
+    margin-left: 0px;
+    margin-right: 20px;
+    border: none;
+    background: none;
+}
+button.add {
+    min-height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border-color: transparent;
+    background-color: #a683e3;
+    color: #fff;
+    font-size: 30px;
+    border-width: 0;
+}
+form.edit {
+    display: flex;
+}
 footer{
     font-size: large;
     color: white;

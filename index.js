@@ -74,7 +74,7 @@ app.get("/book/:id", async (req,res)=>{
         const book = await db.query("SELECT * FROM books WHERE id = $1",[req.params.id])
         const bookId = book.rows[0].id;
         try{
-            const notes = await db.query("SELECT * FROM notes WHERE book_id = $1",[bookId]);
+            const notes = await db.query("SELECT * FROM notes WHERE book_id = $1 ORDER BY id",[bookId]);
             res.render("booknotes.ejs",{
                 book: book.rows[0],
                 notes: notes.rows.length > 0 ? notes.rows : null
@@ -89,12 +89,21 @@ app.get("/book/:id", async (req,res)=>{
     }
 });
 
-app.post("/book/:id", async (req,res)=>{
+app.post("/book/delete/:id", async (req,res)=>{
     const bookId = req.params.id;
     await db.query("DELETE FROM notes WHERE book_id = $1",[bookId]);
     await db.query("DELETE FROM books WHERE id = $1",[bookId]);
     res.redirect("/");
 });
+app.post("/note/delete/:bookId", async (req,res)=>{
+    await db.query("DELETE FROM notes WHERE id = $1",[req.body.deleteNoteId]);
+    res.redirect(`/book/${req.params.bookId}`);
+})
+app.post("/note/edit/:bookId", async (req,res)=>{
+    await db.query("UPDATE notes SET note_content = $1 WHERE id = $2",[req.body.updatedNoteContent,req.body.updatedNoteId]);
+    res.redirect(`/book/${req.params.bookId}`);
+});
+
 app.get("/add",(req,res)=>{
     res.render("newBook.ejs");
 });
@@ -125,7 +134,7 @@ app.post("/book/new", async (req,res)=>{
 
 app.post("/note/add",async (req,res)=>{
     const bookId = req.body.bookId;
-    await db.query("INSERT INTO notes (note,book_id)\
+    await db.query("INSERT INTO notes (note_content,book_id)\
                     VALUES ($1,$2)",[req.body.noteContent,bookId]);
     res.redirect("/book/"+bookId);
 });

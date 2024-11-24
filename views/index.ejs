@@ -18,8 +18,8 @@
                             <div class="btns-box">
                                 <a class="link-btn" href="/book/<%- book.id %>">Book Notes</a>
 
-                                <form class="delete-btn" action="/book/<%= book.id %>" method="post">
-                                    <input type="checkbox" onchange="this.form.submit()">Delete</input>
+                                <form  action="/book/delete/<%= book.id %>" method="post">
+                                    <button class="delete-btn" onclick="this.form.submit()">Delete</input>
                                 </form>
                             </div>
                         </li>
