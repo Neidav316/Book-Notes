@@ -18,21 +18,25 @@
                 <% if (locals.notes ) { %>
                     <ul class="note-list">
                         <% notes.forEach(note =>{ %>
-                            <li class="list-item">
+                            <li class="list-item note-box">
                                 <p id="note<%= note.id %>"><%= note.note_content %></p>
-                                <form class="edit" action="/note/edit/<%= book.id %>" method="post">
-                                    <input type="hidden" name="updatedNoteId" value="<%= note.id %>"/>
-                                    <input id="input<%= note.id %>" type="text" name="updatedNoteContent" value="<%= note.note_content %>" autocomplete="off"
-                                        autofocus="true" hidden="true" />
-                                    <button id="done<%=note.id%>" class="edit" type="submit" hidden><img class="icon"
-                                        src="/assets/icons/check-solid.svg" alt="tick image"></button>
-                                </form>
-                                <button id="edit<%= note.id %>" class="edit" onclick="handler('<%=note.id%>')">
-                                    <img class="icon" src="/assets/icons/pencil-solid.svg" alt="pencil image">
-                                </button>
-                                <form action="/note/delete/<%= book.id %>" method="post">
-                                    <input type="checkbox" onchange="this.form.submit()" name="deleteNoteId" value="<%= note.id %>">
-                                  </form>
+                                <div>
+                                    <form class="edit" action="/note/edit/<%= book.id %>" method="post">
+                                        <input type="hidden" name="updatedNoteId" value="<%= note.id %>"/>
+                                        <input id="input<%= note.id %>" type="text" name="updatedNoteContent" value="<%= note.note_content %>" autocomplete="off"
+                                            autofocus="true" hidden="true" />
+                                        <button id="done<%=note.id%>" class="edit" type="submit" hidden><img class="icon"
+                                            src="/assets/icons/check-solid.svg" alt="tick image"></button>
+                                    </form>
+                                    <button id="edit<%= note.id %>" class="edit"  onclick="handler('<%=note.id%>')">
+                                        <img class="icon" src="/assets/icons/pencil-solid.svg" alt="pencil image">
+                                        <label style="font-size: 15px;"for="edit<%= note.id %>">Edit</label>
+                                    </button>
+                                    <form action="/note/delete/<%= book.id %>" method="post">
+                                        <input type="checkbox" onchange="this.form.submit()" name="deleteNoteId" value="<%= note.id %>">
+                                        <label style="font-size: 15px;"for=<%= note.id%>>Delete</label>
+                                    </form>
+                                </div>
                             </li>
                         <% }) %>
                     </ul>

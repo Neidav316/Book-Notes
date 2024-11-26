@@ -1,6 +1,9 @@
 # BookNotes Web App
 BookNotes is a web application that helps users keep track of books they have read and take detailed notes about them. The app utilizes the OpenLibrary API for searching books and fetching book covers, while a PostgreSQL server is used to store the user's books and notes.
 
+## Preview
+<img src="/public/assets/book-notes-preview.gif" width="40" height="40">
+
 ## Features
 Book Search: Search for books by title, author, or ISBN using the OpenLibrary API.
 Book Covers: Display visually appealing book covers using the OpenLibrary cover API.
